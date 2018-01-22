@@ -1,0 +1,12 @@
+[Unit]
+Description=Webhook for GH and Tower
+After=network.target
+Documentation=https://github.com/ArctiqTeam/tower-webhook
+
+[Service]
+ExecStart=/usr/local/bin/webhook -hooks /etc/webhook/webhook.conf -verbose
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=default.target

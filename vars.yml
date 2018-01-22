@@ -1,0 +1,4 @@
+---
+projects:
+  - id: 6
+    name: ansible-self-healing

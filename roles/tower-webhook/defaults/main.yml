@@ -1,0 +1,5 @@
+---
+# defaults file for tower-webhook
+    gh_secret: "{{ lookup('env','GH_SECRET') }}"
+    tower_host: "127.0.0.1"
+    tower_password: "{{ lookup('env','TOWER_PASSWORD') }}"

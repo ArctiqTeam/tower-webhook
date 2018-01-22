@@ -1,0 +1,43 @@
+---
+# tasks file for tower-webhook
+
+- name: Download Webhook binary
+  unarchive:
+    src: https://github.com/adnanh/webhook/releases/download/2.6.8/webhook-linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: yes
+  notify: enable webhook
+
+- name: Move the Webhook binary
+  copy:
+    src: /tmp/webhook-linux-amd64/webhook
+    dest: /usr/local/bin/webhook
+    remote_src: yes
+    mode: 0755
+  notify: enable webhook
+
+- name: Ensure the config directory exists
+  file:
+    path: /etc/webhook
+    state: directory
+    mode: 0755
+
+- name: Template the systemd unit
+  template:
+    src: "{{ item.name }}.j2"
+    dest: "{{ item.dest }}{{ item.name }}"
+    mode: 0755
+  with_items:
+    - { name: 'webhook.service', dest: '/etc/systemd/system/' }
+    - { name: 'webhook.conf', dest: '/etc/webhook/' }
+  failed_when: gh_secret == "" or tower_password == ""
+  notify: enable webhook
+
+- name: Template the webhook executables
+  template:
+    src: curl.sh.j2
+    dest: "/usr/local/bin/{{ item.name }}.sh"
+    mode: 0700
+  with_items: "{{ projects }}"
+  failed_when: gh_secret == "" or tower_password == ""
+  notify: enable webhook

@@ -1,0 +1,9 @@
+---
+- name: Install the GH Webhook
+  hosts: all
+  become: yes
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  roles:
+    - "tower-webhook" 

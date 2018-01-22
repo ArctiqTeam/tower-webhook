@@ -1,0 +1,21 @@
+{% for project in projects %}
+[
+  {
+    "id": "{{ project.name }}",
+    "execute-command": "/usr/local/bin/{{ project.name }}.sh",
+    "trigger-rule":
+    {
+      "match":
+      {
+        "type": "payload-hash-sha1",
+        "secret": "{{ gh_secret }}",
+        "parameter":
+        {
+          "source": "header",
+          "name": "X-Hub-Signature"
+        }
+      }
+    }
+  }
+]{% if not loop.last %},{% endif %}
+{% endfor %}

@@ -1,0 +1,7 @@
+---
+# handlers file for tower-webhook
+- name: enable webhook
+  service:
+    name: webhook
+    state: restarted
+    enabled: yes

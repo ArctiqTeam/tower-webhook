@@ -1,0 +1,2 @@
+#!/bin/sh
+curl -qs -X POST -H 'Content-type: application/json' -u admin:'{{ tower_password }}' 'http://{{ tower_host }}/api/v2/projects/{{ item.id }}/update/'
