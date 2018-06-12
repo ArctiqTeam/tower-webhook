@@ -15,6 +15,7 @@ The project consists of an Ansible playbook to install and configure the webhook
 
  * Customize the vars.yml file accordingly
  * Customize the hosts file as needed - this is the host that will run the webhook
+ * The playbook / role uses the following environment vars that need to be before running the playbook - GH_SECRET (used in the GH webhook) and TOWER_PASSWORD (currently just admin user is supported)
  * Run the playbook
 
 ## License
